@@ -5,7 +5,7 @@ using TimeTravelersDatabase.Data.Entities;
 
 namespace TimeTravelersDatabase.Data
 {
-	public interface IArrivalWindowRepository
+	public interface IArrivalWindowsRepository
 	{
 		#region Arrival Windows
 		void AddWindow(ArrivalWindow window);
