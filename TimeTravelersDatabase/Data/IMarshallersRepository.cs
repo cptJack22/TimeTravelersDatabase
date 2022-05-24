@@ -1,13 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
+using TimeTravelersDatabase.Data.Entities;
 
 namespace TimeTravelersDatabase.Data
 {
 	public interface IMarshallersRepository
 	{
+		#region Marshallers
+		IEnumerable<Marshaller> GetAll();
 
+		Marshaller GetMarshallerByKey(Guid key);
+		#endregion  //	marshallers
+
+		void AddEntity(object entity);
+
+		void DeleteEntity(object entity);
+
+		bool SaveAll();
 	}
 }

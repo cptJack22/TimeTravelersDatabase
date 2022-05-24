@@ -9,7 +9,7 @@ namespace TimeTravelersDatabase.Data.Entities
 	/// the first contact a timetraveler makes. A Time Marshaller should 
 	/// be prepared for this honor.
 	/// </summary>
-	public class Marshaller : ModelBase
+	public class Marshaller : EntityBase
 	{
 		#region Properties
 		/// <summary>

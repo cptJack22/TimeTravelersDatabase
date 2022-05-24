@@ -4,17 +4,17 @@ using System.ComponentModel.DataAnnotations;
 
 using TimeTravelersDatabase.Data.Entities.Coordinates;
 using TimeTravelersDatabase.Data.Entities.News;
-using TimeTravelersDatabase.Data.Entities.Weather.Units;
-using TimeTravelersDatabase.Data.Models.Weather.Units;
+
+using UnitsNet;
 
 namespace TimeTravelersDatabase.Data.Entities
 {
-	public class ArrivalWindow : ModelBase
+	public class ArrivalWindow : EntityBase
 	{
 		#region Properties
 		/// <summary>
 		/// Location on the Earth at the center of the arrival window.
-		/// At this time, we will only use circles.
+		/// At this time, we will only use circlular arrival windows.
 		/// </summary>
 		public GeoCoordinate Center { get; set; }
 
@@ -27,6 +27,11 @@ namespace TimeTravelersDatabase.Data.Entities
 		/// Time Marshaller(s) responsible for the arrival window.
 		/// </summary>
 		public IEnumerable<Marshaller> Marshallers { get; set; }
+
+		/// <summary>
+		/// Human-friendly reference for the Arrival Window
+		/// </summary>
+		public string Name { get; set; }
 
 		/// <summary>
 		/// Collection of the top news headlines from the day, month, and year of the arrival window.
@@ -43,7 +48,7 @@ namespace TimeTravelersDatabase.Data.Entities
 		/// Radius from the ArrivalWindow.Center of the arrival window. Please make sure this is clear.
 		/// </summary>
 		/// <see cref="Center"/>
-		public ImperialAndMetricUnits Radius { get; set; }
+		public Length Radius { get; set; }
 
 		/// <summary>
 		/// Description of the arrival window physical area.
@@ -56,7 +61,7 @@ namespace TimeTravelersDatabase.Data.Entities
 		/// <summary>
 		/// Weather report for the arrival window.
 		/// </summary>
-		public CurrentWeather Weather { get; set; }
+		public WeatherReport Weather { get; set; }
 
 		/// <summary>
 		/// Date/Time of the window close. Arriving after the window close is not recommended, as it is no longer deemed safe.
@@ -77,19 +82,9 @@ namespace TimeTravelersDatabase.Data.Entities
 		{
 			Center = new GeoCoordinate();
 			Marshallers = null;
-			Radius = new ImperialAndMetricUnits {
-				Imperial = new Imperial {
-					Value = 0,
-					Unit = "Feet",
-					UnitType = Convert.ToInt32(UnitType.Feet)
-				},
-				Metric = new Metric {
-					Value = 0,
-					Unit = "Meter",
-					UnitType = Convert.ToInt32(UnitType.Meter)
-				}
-			};
-			Weather = new CurrentWeather();
+			Name = string.Empty;
+			Radius = new Length(10, UnitsNet.Units.LengthUnit.Meter);
+			Weather = new WeatherReport();
 			WindowOpen = new DateTime();
 			WindowClose = new DateTime();
 		}

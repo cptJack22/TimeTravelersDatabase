@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TimeTravelersDatabase.Data.Entities.Weather
 {
-	public class PressureTendency
+	public class PressureTendency : EntityBase
 	{
 		#region Properties
 		/// <summary>

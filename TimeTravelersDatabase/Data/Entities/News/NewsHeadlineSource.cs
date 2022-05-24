@@ -2,7 +2,7 @@
 
 namespace TimeTravelersDatabase.Data.Entities.News
 {
-	public class NewsHeadlineSource : ModelBase
+	public class NewsHeadlineSource : EntityBase
 	{
 		#region Properties
 		public DateTime Date { get; set; }

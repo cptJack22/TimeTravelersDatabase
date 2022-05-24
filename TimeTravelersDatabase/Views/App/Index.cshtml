@@ -1,15 +1,15 @@
-﻿@{
-	ViewBag.Title = "Home Page";
-}
+﻿@model IEnumerable<ArrivalWindow>
 <div class="row">
 	<div class="col-md-9">
 
 		<p class="lead">
-			Stephen Hawking famously threw a time traveler's champagne party on June 28, 2009.
+			<strong>Stephen Hawking</strong> famously threw a time traveler's champagne party on June 28, 2009.
 			Invitations were sent out a day after the event took place. No one showed up. What
 			if they just couldn't find safe landing coordinates? This application intends to supply
 			safe arrival windows.
 		</p>
+
+		<p>Count: @Model.Count()</p>
 
 		@*<div>
 			<div id="loginToggle">Login</div>

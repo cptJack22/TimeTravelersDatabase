@@ -3,7 +3,7 @@
 	/// <summary>
 	/// Precise global location data for the purposes of pinpointing a location on Earth.
 	/// </summary>
-	public class GeoCoordinate : ModelBase
+	public class GeoCoordinate : EntityBase
 	{
 		#region Properties
 		/// <summary>

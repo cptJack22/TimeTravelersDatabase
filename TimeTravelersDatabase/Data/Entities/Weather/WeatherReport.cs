@@ -1,13 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 using TimeTravelersDatabase.Data.Entities.Weather;
-using TimeTravelersDatabase.Data.Entities.Weather.Units;
-
-using static TimeTravelersDatabase.Data.Entities.Weather.Temperature;
+using UnitsNet;
 
 namespace TimeTravelersDatabase.Data.Entities
 {
@@ -16,7 +10,7 @@ namespace TimeTravelersDatabase.Data.Entities
 	/// awkward for a grand arrival only to thave the travelers duck back inside 
 	/// quickly to dress to the weather.
 	/// </summary>
-	public class CurrentWeather
+	public class WeatherReport : EntityBase
 	{
 		#region Properties
 		/// <summary>
@@ -42,7 +36,7 @@ namespace TimeTravelersDatabase.Data.Entities
 		/// Numeric value representing an image that displays the current 
 		/// condition described by WeatherText. May be NULL.
 		/// </summary>
-		public Int32 WeatherIcon { get;set; }
+		public Int32 WeatherIcon { get; set; }
 
 		public LocalSource LocalSource { get; set; }
 
@@ -57,13 +51,13 @@ namespace TimeTravelersDatabase.Data.Entities
 		/// Patented AccuWeather RealFeel Temperature.
 		/// Contains Metric and Imperial Values.
 		/// </summary>
-		public ImperialAndMetricUnits RealFeelTemperature { get; set; }
+		public Temperature RealFeelTemperature { get; set; }
 
 		/// <summary>
 		/// Patented AccuWeather RealFeel Temperature in the shade. 
 		/// Contains Metric and Imperial Values.
 		/// </summary>
-		public ImperialAndMetricUnits RealFeelTemperatureShade { get; set; }
+		public Temperature RealFeelTemperatureShade { get; set; }
 
 		/// <summary>
 		/// Relative humidity. May be NULL.
@@ -74,9 +68,34 @@ namespace TimeTravelersDatabase.Data.Entities
 		/// Dew point temperature.
 		/// Contains Metric and Imperial Values.
 		/// </summary>
-		public ImperialAndMetricUnits DewPoint { get; set; }
+		public Temperature DewPoint { get; set; }
 
-		public Wind Wind { get; set; }
+		/// <summary>
+		/// Wind direction in Azimuth degrees(e.g. 180 degrees is a wind coming from the south). May be NULL.
+		/// </summary>
+		public Int32 WindDirectionDegrees { get; set; }
+
+		/// <summary>
+		/// Direction abbreviated in English.
+		/// </summary>
+		public string WindDirectionEnglish { get; set; }
+
+		/// <summary>
+		/// Direction abbreviated in the language specified by language code in URL.
+		/// </summary>
+		public string WindDirectionLocalized { get; set; }
+
+		/// <summary>
+		/// Wind Speed.
+		/// Contains Metric and Imperial Values.
+		/// </summary>
+		public Speed WindSpeed { get; set; }
+
+		/// <summary>
+		/// Wind gust speed.
+		/// Contains Metric and Imperial Values.
+		/// </summary>
+		public Speed WindGustSpeed { get; set; }
 
 		/// <summary>
 		/// Measure of the strength of the ultraviolet radiation 
@@ -93,7 +112,7 @@ namespace TimeTravelersDatabase.Data.Entities
 		/// Visibility.
 		/// Contains Metric and Imperial Values.
 		/// </summary>
-		public ImperialAndMetricUnits Visibility { get; set; }
+		public Length Visibility { get; set; }
 
 		/// <summary>
 		/// Cause of limited visibility.
@@ -110,34 +129,34 @@ namespace TimeTravelersDatabase.Data.Entities
 		/// Cloud ceiling.
 		/// Contains Metric and Imperial Values.
 		/// </summary>
-		public ImperialAndMetricUnits Ceiling { get; set; }
+		public Length Ceiling { get; set; }
 
 		/// <summary>
 		/// Atmospheric pressure.
 		/// Contains Metric and Imperial Values.
 		/// </summary>
-		public ImperialAndMetricUnits Pressure { get; set; }
+		public Pressure Pressure { get; set; }
 
-		public PressureTendency	PressureTendency { get; set; }
+		public PressureTendency PressureTendency { get; set; }
 
 		/// <summary>
 		/// Departure from the temperature observed 24 hours ago.
 		/// Contains Metric and Imperial Values.
 		/// </summary>
-		public ImperialAndMetricUnits Past24HourTemperatureDeparture { get; set; }
+		public Temperature Past24HourTemperatureDeparture { get; set; }
 
 		/// <summary>
 		/// Perceived outdoor temperature caused by the combination 
 		/// of air temperature, relative humidity, and wind speed.
 		/// Contains Metric and Imperial Values.
 		/// </summary>
-		public ImperialAndMetricUnits ApparentTemperature { get; set; }
+		public Temperature ApparentTemperature { get; set; }
 
 		/// <summary>
 		/// Perceived air temperature on exposed skin due to wind.
 		/// Contains Metric and Imperial Values.
 		/// </summary>
-		public ImperialAndMetricUnits WindChillTemperature { get; set; }
+		public Temperature WindChillTemperature { get; set; }
 
 		/// <summary>
 		/// The temperature to which air may be cooled by evaporating 
@@ -145,17 +164,17 @@ namespace TimeTravelersDatabase.Data.Entities
 		/// saturation.
 		/// Contains Metric and Imperial Values.
 		/// </summary>
-		public ImperialAndMetricUnits WetBulbTemperature { get; set; }
+		public Temperature WetBulbTemperature { get; set; }
 
 		/// <summary>
 		/// Amount of precipitation(liquid water equivalent) 
 		/// that has fallen in the past hour.
 		/// Contains Metric and Imperial Values.
 		/// </summary>
-		public ImperialAndMetricUnits Precip1hr { get; set; }
+		public Volume Precip1hr { get; set; }
 
 		public PrecipitationSummary PrecipitationSummary { get; set; }
-		
+
 		public TemperatureSummary TemperatureSummary { get; set; }
 
 		/// <summary>
@@ -188,7 +207,7 @@ namespace TimeTravelersDatabase.Data.Entities
 		#endregion //	properties
 
 		#region Constructors
-		public CurrentWeather():base()
+		public WeatherReport() : base()
 		{
 			init();
 		}
@@ -197,6 +216,6 @@ namespace TimeTravelersDatabase.Data.Entities
 		{
 
 		}
-		#endregion	//	constructors
+		#endregion //	constructors
 	}
 }

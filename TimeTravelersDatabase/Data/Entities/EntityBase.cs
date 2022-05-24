@@ -3,9 +3,9 @@
 namespace TimeTravelersDatabase.Data.Entities
 {
 	/// <summary>
-	///	General pupose base class for data models
+	///	General pupose base class for entities
 	/// </summary>
-	public class ModelBase
+	public class EntityBase
 	{
 		#region Properties
 		/// <summary>
@@ -16,7 +16,12 @@ namespace TimeTravelersDatabase.Data.Entities
 		/// <summary>
 		/// Meta data - which user created this record and when.
 		/// </summary>
-		public UserTimestamp Created { get; set; }
+		public DateTime CreatedWhen { get; set; }
+		
+		/// <summary>
+		/// Meta data - which user created this record and when.
+		/// </summary>
+		public Guid CreatedWho { get; set; }
 
 		/// <summary>
 		/// Primary Identifier to the record.
@@ -34,20 +39,29 @@ namespace TimeTravelersDatabase.Data.Entities
 		/// Meta data - which user updated this record and when.
 		/// </summary>
 		/// </summary>
-		public UserTimestamp Updated { get; set; }
+		public DateTime UpdatedWhen { get; set; }
+
+		/// <summary>
+		/// /// <summary>
+		/// Meta data - which user updated this record and when.
+		/// </summary>
+		/// </summary>
+		public Guid UpdatedWho { get; set; }
 		#endregion   //	properties
 
 		#region Constructors
 		private void init()
 		{
 			Active = false;
-			Created = new UserTimestamp();
+			CreatedWhen = new DateTime();
+			CreatedWho = Guid.Empty;
 			Id = -1;
 			Key = Guid.Empty;
-			Updated = new UserTimestamp();
+			UpdatedWhen = new DateTime();
+			UpdatedWho = Guid.Empty;
 		}
 
-		public ModelBase() : base()
+		public EntityBase() : base()
 		{
 			init();
 		}

@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 using TimeTravelersDatabase.Data;
 using TimeTravelersDatabase.Services;
@@ -37,26 +38,33 @@ namespace TimeTravelersDatabase
 			///	add identity
 			///	add entity famework arrival windows
 			///	add authentication - cookie, jwtbearer
-			///	add db context
-
-			services.AddTransient<IMailService, NullMailService>();
 
 			//	db context
+			services.AddDbContext<TimeTravelersDatabaseContext>();
+
+			//	additional services
+			services.AddTransient<IMailService, NullMailService>();
 
 			//	db seeder
 			services.AddTransient<TTDbSeeder>();
 
 			//	automapper
-			//services.AddAutoMapper(Assembly.GetExecutingAssembly());
+			services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
 			//	repositories
 			if (_env.IsDevelopment())
 			{
-
+				services.AddScoped<IArrivalWindowsRepository, ArrivalWindowsInMemoryRepository>();
+				services.AddScoped<IMarshallersRepository, MarshallersInMemoryRepository>();
+				services.AddScoped<INewsRepository, NewsInMemoryRepository>();
+				services.AddScoped<IWeatherRepository, WeatherInMemoryRepository>();
 			}
 			else
 			{
-
+				//services.AddScoped<IArrivalWindowsRepository, ArrivalWIndowsRepository>();
+				//services.AddScoped<IMarshallersRepository, MarshallersRepository>();
+				//services.AddScoped<INewsRepository, NewsRepository>();
+				//services.AddScoped<IWeatherRepository, WeatherRepository>();
 			}
 
 			//	controllers

@@ -8,16 +8,16 @@ namespace TimeTravelersDatabase.Data
 	public interface IArrivalWindowsRepository
 	{
 		#region Arrival Windows
-		void AddWindow(ArrivalWindow window);
+		IEnumerable<ArrivalWindow> GetAll(bool includeNewsAndWeather = false);
 
-		IEnumerable<ArrivalWindow> GetAllWindows(bool includeNewsAndWeather);
-
-		IEnumerable<ArrivalWindow> GetAllWindowsByMarshaller(string usesrname, bool includeNewsAndWeather);
+		IEnumerable<ArrivalWindow> GetAllWindowsByMarshaller(Guid key, bool includeNewsAndWeather = false);
 
 		ArrivalWindow GetWindowByKey(Guid key);
 		#endregion  //	arrivalWindows
 
-		void AddEntity(object model);
+		void AddEntity(object entity);
+
+		void RemoveEntity(object entity);
 
 		bool SaveAll();
 	}

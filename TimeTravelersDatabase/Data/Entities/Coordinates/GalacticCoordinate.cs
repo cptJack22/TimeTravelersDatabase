@@ -18,7 +18,7 @@ namespace TimeTravelersDatabase.Data.Entities.Coordinates
 	/// rather than where the Earth is at the time of departure.
 	/// </summary>
 	/// <see cref="https://en.wikipedia.org/wiki/Galactic_coordinate_system"/>
-	public class GalacticCoordinate
+	public class GalacticCoordinate : EntityBase
 	{
 		///	TODO: ALL of this
 		///	https://en.wikipedia.org/wiki/Galactic_coordinate_system

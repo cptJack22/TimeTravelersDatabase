@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TimeTravelersDatabase.Data.Entities.Weather
+﻿namespace TimeTravelersDatabase.Data.Entities.Weather
 {
-	public class TemperatureSummary
+	public class TemperatureSummary : EntityBase
 	{
 		#region Properties
 		/// <summary>

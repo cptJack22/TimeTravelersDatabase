@@ -1,43 +1,62 @@
-﻿using System;
+﻿using Microsoft.Extensions.Logging;
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 using TimeTravelersDatabase.Data.Entities;
 
 namespace TimeTravelersDatabase.Data
 {
-	public class ArrivalWIndowsInMemoryRepository : IArrivalWindowsRepository
+	public class ArrivalWindowsInMemoryRepository : IArrivalWindowsRepository
 	{
-		public void AddEntity(object model)
+		private readonly TimeTravelersDatabaseContext _ctx;
+		private readonly ILogger<ArrivalWindowsInMemoryRepository> _logger;
+
+		public ArrivalWindowsInMemoryRepository(
+			TimeTravelersDatabaseContext ctx,
+			ILogger<ArrivalWindowsInMemoryRepository> logger)
 		{
-			throw new NotImplementedException();
+			_ctx = ctx;
+			_logger = logger;
 		}
 
-		public void AddWindow(ArrivalWindow window)
+		#region Arrival Windows
+		public IEnumerable<ArrivalWindow> GetAll(bool includeNewsAndWeather=false)
 		{
-			throw new NotImplementedException();
+			return _ctx.ArrivalWindows;
 		}
 
-		public IEnumerable<ArrivalWindow> GetAllWindows(bool includeNewsAndWeather)
+		public IEnumerable<ArrivalWindow> GetAllWindowsByMarshaller(Guid key, bool includeNewsAndWeather=false)
 		{
-			throw new NotImplementedException();
-		}
+			var marshaller = _ctx.Marshallers.FirstOrDefault(m => m.Key == key);
+			if (includeNewsAndWeather)
+			{
+				return _ctx.ArrivalWindows.Where(a => a.Marshallers.Contains(marshaller));
+			}
 
-		public IEnumerable<ArrivalWindow> GetAllWindowsByMarshaller(string usesrname, bool includeNewsAndWeather)
-		{
-			throw new NotImplementedException();
+			return _ctx.ArrivalWindows.Where(a => a.Marshallers.Contains(marshaller));
 		}
 
 		public ArrivalWindow GetWindowByKey(Guid key)
 		{
-			throw new NotImplementedException();
+			return _ctx.ArrivalWindows.FirstOrDefault(a => a.Key == key);
+		}
+		#endregion //	arrival windows
+
+		public void AddEntity(object entity)
+		{
+			_ctx.Add(entity);
+		}
+
+		public void RemoveEntity(object entity)
+		{
+			_ctx.Remove(entity);
 		}
 
 		public bool SaveAll()
 		{
-			throw new NotImplementedException();
+			return _ctx.SaveChanges() > 0;
 		}
 	}
 }
